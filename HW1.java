@@ -99,7 +99,7 @@ public class HW1 {
                     curr = curr.next;
                 }
             }
-
+        }
         /*
          * Method removeElement() - this method removes all nodes that contain a
          * value equal to the value the provided parameter 'value'.
@@ -271,7 +271,6 @@ public class HW1 {
         */
 
         // RETURN THE CORRECT OPTION NUMBER LISTED ABOVE
-        return -1;
         return 3;
 
     }
