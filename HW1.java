@@ -1,4 +1,3 @@
-
 /*
  * *** Jenine Irshaid / 002 ***
  *
@@ -87,11 +86,19 @@ public class HW1 {
          */
         public void removeElementsLT ( int ltValue ) {
 
-            // YOUR CODE GOES HERE
-
-            return;
+        // Remove leading nodes < ltValue
+            while (head != null && head.data < ltValue) {
+                head = head.next;
         }
-
+        // Remove remaining nodes < ltValue
+            Node curr = head;
+            while (curr != null && curr.next != null) {
+                if (curr.next.data < ltValue) {
+                    curr.next = curr.next.next;
+                } else {
+                    curr = curr.next;
+                }
+            }
 
         /*
          * Method removeElement() - this method removes all nodes that contain a
@@ -100,9 +107,20 @@ public class HW1 {
 
         public void removeElement ( int value ) {
 
-            // YOUR CODE GOES HERE
+            // Remove matching heads
+            while (head != null && head.data == value) {
+                head = head.next;
+            }
+            // Remove matches after head
+            Node curr = head;
+            while (curr != null && curr.next != null) {
+                if (curr.next.data == value) {
+                    curr.next = curr.next.next; // skip the node with `value`
+                } else {
+                    curr = curr.next;
+                }
+            }
 
-            return;
         }
 
 
@@ -160,8 +178,19 @@ public class HW1 {
             Stack<Character> stack = new Stack<>();
             input = input.toLowerCase().replaceAll("\\s+", "");
 
-            // Your CODE GOES HERE
-            return false;
+            // Push every character onto the stack
+            for (int i = 0; i < input.length(); i++) {
+                stack.push(input.charAt(i));
+            }
+
+            // Pop and compare against the original (reversed order)
+            for (int i = 0; i < input.length(); i++) {
+                if (input.charAt(i) != stack.pop()) {
+                    return false; // mismatch means not a palindrome
+                }
+            }
+            return true; // all characters matched in reverse order
+
         }
 
 
@@ -182,8 +211,31 @@ public class HW1 {
          */
         public static int findLargestK(Stack<Integer> stack, int k) {
 
-            // YOUR CODE GOES HERE
-            return -1;
+            int size = stack.size();
+            int best = -1;
+
+            Stack<Integer> temp = new Stack<>();
+            int posFromTop = 0; // 0 for current top element we pop first
+
+            // Pop all elements, tracking positions, and remember matches
+            while (!stack.isEmpty()) {
+                int val = stack.pop();
+                if (val == k) {
+                    // convert top-based position to bottom-based index
+                    int idxFromBottom = size - 1 - posFromTop;
+                    if (idxFromBottom > best) best = idxFromBottom;
+                }
+                temp.push(val);
+                posFromTop++;
+            }
+
+            // Restore original stack order
+            while (!temp.isEmpty()) {
+                stack.push(temp.pop());
+            }
+
+            return best;
+
         }
 
     }  // End class Stacks
@@ -220,6 +272,8 @@ public class HW1 {
 
         // RETURN THE CORRECT OPTION NUMBER LISTED ABOVE
         return -1;
+        return 3;
+
     }
 
 
@@ -240,7 +294,7 @@ public class HW1 {
          */
 
         // RETURN THE CORRECT OPTION LISTED ABOVE
-        return -1;
+        return 2;
     }
 
 }
